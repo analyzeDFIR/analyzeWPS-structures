@@ -101,14 +101,14 @@ OLETypedPropertyValueTypes = Enum(Int16ul,
 
 WPSPropertyValueIntegerNameHeader = Struct(
     'ValueSize'     / Int32ul,
-    'ValueID'       / Int32ul,
-    Padding(1)
+    'ValueID'       / If(this.ValueSize > 0x00, Int32ul),
+    If(this.ValueSize > 0x00, Padding(1))
 )
 
 WPSPropertyValueStringNameHeader = Struct(
     'ValueSize'     / Int32ul,
-    'NameSize'      / Int32ul,
-    Padding(1)
+    'NameSize'      / If(this.ValueSize > 0x00, Int32ul),
+    If(this.ValueSize > 0x00, Padding(1))
 )
 
 WPSPropertyStorageHeader = Struct(
